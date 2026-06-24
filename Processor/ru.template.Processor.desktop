@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.template.Processor
+Exec=/usr/bin/ru.template.Processor
+Name=Processor
+Name[ru]=Процессор
+
+[X-Application]
+Permissions=Pictures
+OrganizationName=ru.template
+ApplicationName=Processor
+ExecDBus=/usr/bin/ru.template.Processor

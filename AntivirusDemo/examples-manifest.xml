@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Generated file. This file is used by SDK to show example inside Welcome screen. It is not the part of the example. -->
+<instructionals module="Демо-приложения ОС Аврора">
+ <examples>
+  <example imageUrl="/Users/feedachyou/Library/Application Support/AuroraOS-SDK-5.2.0.180-MB2/Демо-приложения ОС Аврора/AntivirusDemo/example-icon.png" name="Antivirus Demo" projectPath="CMakeLists.txt">
+   <description><![CDATA[The application demonstrates the operation of the API with which an antivirus application can interact.]]></description>
+   <tags>Qt,пример</tags>
+   <platforms>Mer</platforms>
+   <preferredFeatures>Mer.Wizard.Feature.Emulator</preferredFeatures>
+   <fileToOpen>/qml/AntivirusDemo.qml</fileToOpen>
+  </example>
+ </examples>
+</instructionals>

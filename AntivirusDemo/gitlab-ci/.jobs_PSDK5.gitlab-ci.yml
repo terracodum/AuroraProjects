@@ -1,0 +1,120 @@
+"build-aurora_5.1.3.85_aarch64":
+  stage: build
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/Aurora5PlatformSDK/sdks/aurora_psdk/sdk-chroot ./gitlab-ci/build.sh -a ./ -t AuroraOS-$PSDK_5_VER-aarch64
+  when: always
+
+"build-aurora_5.1.3.85_armv7hl":
+  stage: build
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/Aurora5PlatformSDK/sdks/aurora_psdk/sdk-chroot ./gitlab-ci/build.sh -a ./ -t AuroraOS-$PSDK_5_VER-armv7hl
+  when: always
+
+"build-aurora_5.1.3.85_x86_64":
+  stage: build
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/Aurora5PlatformSDK/sdks/aurora_psdk/sdk-chroot ./gitlab-ci/build.sh -a ./ -t AuroraOS-$PSDK_5_VER-x86_64
+  when: always
+
+"sign-aurora_5.1.3.85_aarch64":
+  stage: sign
+  needs: ["build-aurora_5.1.3.85_aarch64"]
+  dependencies:
+    - "build-aurora_5.1.3.85_aarch64"
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/Aurora5PlatformSDK/sdks/aurora_psdk/sdk-chroot ./gitlab-ci/sign.sh -p $SIGN_PROFILE -r ./artifacts
+
+"sign-aurora_5.1.3.85_armv7hl":
+  stage: sign
+  needs: ["build-aurora_5.1.3.85_armv7hl"]
+  dependencies:
+    - "build-aurora_5.1.3.85_armv7hl"
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/Aurora5PlatformSDK/sdks/aurora_psdk/sdk-chroot ./gitlab-ci/sign.sh -p $SIGN_PROFILE -r ./artifacts
+
+"sign-aurora_5.1.3.85_x86_64":
+  stage: sign
+  needs: ["build-aurora_5.1.3.85_x86_64"]
+  dependencies:
+    - "build-aurora_5.1.3.85_x86_64"
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/Aurora5PlatformSDK/sdks/aurora_psdk/sdk-chroot ./gitlab-ci/sign.sh -p $SIGN_PROFILE -r ./artifacts
+
+"validation-aurora_5.1.3.85_aarch64":
+  stage: validation
+  needs: ["sign-aurora_5.1.3.85_aarch64"]
+  dependencies:
+    - "sign-aurora_5.1.3.85_aarch64"
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/aurora-utils/rpm_validator -p antivirus /home/gitlab-runner/Aurora5PlatformSDK/ ./artifacts/*.aarch64.rpm
+
+
+"validation-aurora_5.1.3.85_armv7hl":
+  stage: validation
+  needs: ["sign-aurora_5.1.3.85_armv7hl"]
+  dependencies:
+    - "sign-aurora_5.1.3.85_armv7hl"
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/aurora-utils/rpm_validator -p antivirus /home/gitlab-runner/Aurora5PlatformSDK/ ./artifacts/*.armv7hl.rpm
+
+"validation-aurora_5.1.3.85_x86_64":
+  stage: validation
+  needs: ["sign-aurora_5.1.3.85_x86_64"]
+  dependencies:
+    - "sign-aurora_5.1.3.85_x86_64"
+  tags:
+    - aurora_psdk_runner
+  artifacts:
+    paths:
+      - ./artifacts/*.rpm
+  script:
+    - /home/gitlab-runner/aurora-utils/rpm_validator -p antivirus /home/gitlab-runner/Aurora5PlatformSDK/ ./artifacts/*.x86_64.rpm
+
+archive_creation:
+  stage: archiving
+  tags:
+    - aurora_psdk_runner
+  needs: ["validation-aurora_5.1.3.85_aarch64", "validation-aurora_5.1.3.85_armv7hl", "validation-aurora_5.1.3.85_x86_64"]
+  script:
+    - ./gitlab-ci/archive.sh
+  when: on_success

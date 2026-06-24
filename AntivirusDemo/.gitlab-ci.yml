@@ -1,0 +1,11 @@
+stages:
+  - readme_cspell_and_cppcheck
+  - build
+  - sign
+  - validation
+  - archiving
+    
+include:
+  - local: 'gitlab-ci/**.yml'
+
+

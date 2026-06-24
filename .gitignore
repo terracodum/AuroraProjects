@@ -1,0 +1,21 @@
+# Сборка Qt Creator / Aurora SDK
+build/
+*.user
+*.user.*
+.qtcreator/
+
+# Артефакты сборки
+*.o
+*.so
+*.so.*
+*.a
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.qm
+
+# Локальные настройки Claude Code
+.claude/
+
+# Системное
+.DS_Store

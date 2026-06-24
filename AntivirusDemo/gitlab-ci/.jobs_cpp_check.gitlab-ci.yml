@@ -1,0 +1,6 @@
+cppcheck:
+  stage: readme_cspell_and_cppcheck
+  tags:
+    - aurora_psdk_runner
+  script:
+    - /opt/cppcheck/cppcheck -q --enable=all --error-exitcode=1 --suppressions-list=./gitlab-ci/suppressions.txt --template='{severity}:{id} {file}:{line} {message}' $CI_PROJECT_DIR

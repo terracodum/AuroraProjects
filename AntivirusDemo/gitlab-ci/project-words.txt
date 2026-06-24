@@ -1,0 +1,6 @@
+buildroot
+sysconfdir
+libomplog
+auroraos
+rpmbuild
+логгер

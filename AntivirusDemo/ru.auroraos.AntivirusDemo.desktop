@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.auroraos.AntivirusDemo
+Exec=/usr/bin/ru.auroraos.AntivirusDemo
+X-Service-Exec=/usr/bin/ru.auroraos.AntivirusDemo --service
+Name=Antivirus Demo
+Name[ru]=Антивирус Демо
+
+[X-Application]
+Permissions=LogSecurityEvents;UserDirs
+OrganizationName=ru.auroraos
+ApplicationName=AntivirusDemo
